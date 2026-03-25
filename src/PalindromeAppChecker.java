@@ -1,69 +1,29 @@
-class Node {
-    char data;
-    Node next;
-
-    Node(char data) {
-        this.data = data;
-        this.next = null;
-    }
-}
-
 public class PalindromeAppChecker {
+
+
+    public static boolean isPalindrome(String word, int start, int end) {
+
+
+        if (start >= end) {
+            return true;
+        }
+
+
+        if (word.charAt(start) != word.charAt(end)) {
+            return false;
+        }
+
+
+        return isPalindrome(word, start + 1, end - 1);
+    }
 
     public static void main(String[] args) {
 
         String word = "madam";
 
+        boolean result = isPalindrome(word, 0, word.length() - 1);
 
-        Node head = null, tail = null;
-
-        for (int i = 0; i < word.length(); i++) {
-            Node newNode = new Node(word.charAt(i));
-            if (head == null) {
-                head = tail = newNode;
-            } else {
-                tail.next = newNode;
-                tail = newNode;
-            }
-        }
-
-
-        Node slow = head;
-        Node fast = head;
-
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-
-
-        Node prev = null;
-        Node current = slow;
-
-        while (current != null) {
-            Node next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-        }
-
-
-        Node first = head;
-        Node second = prev;
-
-        boolean isPalindrome = true;
-
-        while (second != null) {
-            if (first.data != second.data) {
-                isPalindrome = false;
-                break;
-            }
-            first = first.next;
-            second = second.next;
-        }
-
-
-        if (isPalindrome) {
+        if (result) {
             System.out.println(word + " is a Palindrome");
         } else {
             System.out.println(word + " is Not a Palindrome");
