@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 public class PalindromeAppChecker {
 
     public static void main(String[] args) {
@@ -6,25 +8,21 @@ public class PalindromeAppChecker {
         String word = "madam";
 
 
-        char[] characters = word.toCharArray();
+        Stack<Character> stack = new Stack<>();
 
 
-        int start = 0;
-        int end = characters.length - 1;
-
-        boolean isPalindrome = true;
-
-        while (start < end) {
-            if (characters[start] != characters[end]) {
-                isPalindrome = false;
-                break;
-            }
-            start++;
-            end--;
+        for (int i = 0; i < word.length(); i++) {
+            stack.push(word.charAt(i));
         }
 
 
-        if (isPalindrome) {
+        String reversed = "";
+        while (!stack.isEmpty()) {
+            reversed = reversed + stack.pop();
+        }
+
+
+        if (word.equals(reversed)) {
             System.out.println(word + " is a Palindrome");
         } else {
             System.out.println(word + " is Not a Palindrome");
