@@ -3,7 +3,7 @@ public class PalindromeAppChecker {
     public static void main(String[] args) {
 
 
-        String word = "madam";
+        String word = "level";
 
 
         String reversed = "";
@@ -15,10 +15,9 @@ public class PalindromeAppChecker {
 
 
         if (word.equals(reversed)) {
-            System.out.println(word + " is a Palindrome");
+            System.out.println("The string " + word + " is a Palindrome");
         } else {
-            System.out.println(word + " is Not a Palindrome");
+            System.out.println("The string " + word + " is Not a Palindrome");
         }
-
     }
 }
