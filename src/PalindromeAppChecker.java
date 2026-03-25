@@ -1,21 +1,46 @@
-class PalindromeChecker {
+import java.util.*;
 
+
+interface PalindromeStrategy {
+    boolean checkPalindrome(String word);
+}
+
+
+class StackStrategy implements PalindromeStrategy {
 
     public boolean checkPalindrome(String word) {
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < word.length(); i++) {
+            stack.push(word.charAt(i));
+        }
 
         String reversed = "";
-
-
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reversed = reversed + word.charAt(i);
+        while (!stack.isEmpty()) {
+            reversed += stack.pop();
         }
 
+        return word.equals(reversed);
+    }
+}
 
-        if (word.equals(reversed)) {
-            return true;
-        } else {
-            return false;
+
+class DequeStrategy implements PalindromeStrategy {
+
+    public boolean checkPalindrome(String word) {
+        Deque<Character> deque = new LinkedList<>();
+
+        for (int i = 0; i < word.length(); i++) {
+            deque.addLast(word.charAt(i));
         }
+
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 
@@ -27,11 +52,13 @@ public class PalindromeAppChecker {
         String word = "malayalam";
 
 
-        PalindromeChecker checker = new PalindromeChecker();
+        PalindromeStrategy strategy;
 
 
-        boolean result = checker.checkPalindrome(word);
+        strategy = new StackStrategy();
 
+
+        boolean result = strategy.checkPalindrome(word);
 
         if (result) {
             System.out.println(word + " is a Palindrome");
