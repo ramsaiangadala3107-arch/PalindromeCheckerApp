@@ -1,35 +1,65 @@
-import java.util.Stack;
-import java.util.Queue;
-import java.util.LinkedList;
+class Node {
+    char data;
+    Node next;
 
-import java.util.Deque;
-import java.util.LinkedList;
+    Node(char data) {
+        this.data = data;
+        this.next = null;
+    }
+}
 
 public class PalindromeAppChecker {
 
     public static void main(String[] args) {
 
+        String word = "madam";
 
-        String word = "malayalam";
 
-
-        Deque<Character> deque = new LinkedList<>();
+        Node head = null, tail = null;
 
         for (int i = 0; i < word.length(); i++) {
-            deque.addLast(word.charAt(i));
+            Node newNode = new Node(word.charAt(i));
+            if (head == null) {
+                head = tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
         }
+
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+
+        Node prev = null;
+        Node current = slow;
+
+        while (current != null) {
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+
+        Node first = head;
+        Node second = prev;
 
         boolean isPalindrome = true;
 
-
-        while (deque.size() > 1) {
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
-
-            if (front != rear) {
+        while (second != null) {
+            if (first.data != second.data) {
                 isPalindrome = false;
                 break;
             }
+            first = first.next;
+            second = second.next;
         }
 
 
