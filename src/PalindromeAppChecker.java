@@ -2,6 +2,9 @@ import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class PalindromeAppChecker {
 
     public static void main(String[] args) {
@@ -10,21 +13,20 @@ public class PalindromeAppChecker {
         String word = "malayalam";
 
 
-        Stack<Character> stack = new Stack<>();
-        Queue<Character> queue = new LinkedList<>();
-
+        Deque<Character> deque = new LinkedList<>();
 
         for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-            stack.push(ch);      // LIFO
-            queue.add(ch);       // FIFO
+            deque.addLast(word.charAt(i));
         }
 
         boolean isPalindrome = true;
 
 
-        while (!stack.isEmpty()) {
-            if (stack.pop() != queue.remove()) {
+        while (deque.size() > 1) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
+
+            if (front != rear) {
                 isPalindrome = false;
                 break;
             }
